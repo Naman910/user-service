@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "user-service/proto";
+
+// User represents user details
+message User {
+  uint64 id = 1;
+  string fname = 2;
+  string city = 3;  
+  uint64 phone = 4;
+  float height = 5;
+  bool married = 6;
+}
+
+// GetUserByIDRequest represents the request message for GetUserByID RPC
+message GetUserByIDRequest {
+  uint64 id = 1;
+}
+
+// GetUserByIDResponse represents the response message for GetUserByID RPC
+message GetUserByIDResponse {
+  User user = 1;
+}
+
+// GetUserListByIDRequest represents the request message for GetUserListByID RPC
+message GetUserListByIDRequest {
+  repeated uint64 ids = 1;
+}
+
+// GetUserListByIDResponse represents the response message for GetUserListByID RPC
+message GetUserListByIDResponse {
+  repeated User users = 1;
+}
+
+// SearchUsersRequest represents the request message for SearchUsers RPC
+message SearchUsersRequest {
+  string criteria = 1;
+}
+
+// SearchUsersResponse represents the response message for SearchUsers RPC
+message SearchUsersResponse {
+  repeated User users = 1;
+}
+
+// Define the User service
+service UserService {
+  rpc GetUserByID (GetUserByIDRequest) returns (GetUserByIDResponse) {}
+  rpc GetUserListByID (GetUserListByIDRequest) returns (GetUserListByIDResponse) {}
+  rpc SearchUsers (SearchUsersRequest) returns (SearchUsersResponse) {}
+}
